@@ -1,0 +1,2395 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ht7813.github.io/docs/tutorial/selfsign-cert/">
+      
+      
+        <link rel="prev" href="../../aigen/Mermaid/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>制作自签SSL/Windows代码签名证书 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sslwindows" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              制作自签SSL/Windows代码签名证书
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ht7813/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../aigen/Mermaid/" class="md-tabs__link">
+          
+  
+  
+  AI神秘文章
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  教程
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ht7813/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI神秘文章
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI神秘文章
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aigen/Mermaid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用 Mermaid 在 Markdown 中绘制图表：告别繁琐绘图，拥抱高效表达
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制作自签SSL/Windows代码签名证书
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制作自签SSL/Windows代码签名证书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证书主体（Subject）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证书主体（Subject）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各字段含义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各字段的作用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="各字段的作用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cn-common-name-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CN (Common Name) - 最关键
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-country" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C (Country)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#st-stateprovince" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ST (State/Province)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L (Location)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O (Organization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ou-organizational-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OU (Organizational Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备工作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="准备工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSSL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenSSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MacOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msys2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSYS2 安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二进制文件安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signtool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signtool（代码签名用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSL证书
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSL证书">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仅生成一个根证书
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仅生成一个根证书">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一键生成（最简单）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分步生成（更灵活）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#san" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成带SAN的证书
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ca-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成证书链（CA-&gt;Server证书）（推荐）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成证书链（CA-&gt;Server证书）（推荐）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建根证书（Root CA）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建中间证书（Intermediate CA）[可选但推荐]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建服务器证书（由中间证书签发）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 代码签名证书
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 代码签名证书">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows SDK 直接生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows SDK 直接生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建证书和私钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建SPC文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pfx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建PFX文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ca-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于CA证书生成 (OpenSSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基于CA证书生成 (OpenSSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建代码签名证书配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成代码签名证书
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkcs12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        转换为PKCS#12格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结语
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="结语">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回顾与总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重要提醒
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        后续学习建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最后的叮嘱
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证书主体（Subject）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证书主体（Subject）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各字段含义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各字段的作用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="各字段的作用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cn-common-name-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CN (Common Name) - 最关键
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-country" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C (Country)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#st-stateprovince" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ST (State/Province)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L (Location)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O (Organization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ou-organizational-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OU (Organizational Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备工作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="准备工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSSL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenSSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MacOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msys2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSYS2 安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二进制文件安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signtool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signtool（代码签名用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSL证书
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSL证书">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仅生成一个根证书
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仅生成一个根证书">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一键生成（最简单）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分步生成（更灵活）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#san" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成带SAN的证书
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ca-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成证书链（CA-&gt;Server证书）（推荐）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成证书链（CA-&gt;Server证书）（推荐）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建根证书（Root CA）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建中间证书（Intermediate CA）[可选但推荐]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建服务器证书（由中间证书签发）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 代码签名证书
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 代码签名证书">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows SDK 直接生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows SDK 直接生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建证书和私钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建SPC文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pfx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建PFX文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ca-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基于CA证书生成 (OpenSSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基于CA证书生成 (OpenSSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创建代码签名证书配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成代码签名证书
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkcs12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        转换为PKCS#12格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结语
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="结语">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回顾与总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重要提醒
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        后续学习建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最后的叮嘱
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    教程
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sslwindows">制作自签SSL/Windows代码签名证书</h1>
+<div class="admonition info">
+<p class="admonition-title">声明</p>
+<p>本篇文章的部分内容来自于<strong>AI生成</strong>或<strong>网络查找</strong>，可能未经证实</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p>自签证书仅供本地/内部测试使用，生产环境请使用正式证书（如Let's Encrypt, Digicert等）</p>
+</div>
+<p>在本篇文章中，我将教大家如何创建自签 SSL/Windows代码签名 证书</p>
+<h2 id="_1">基本概念</h2>
+<h3 id="subject">证书主体（Subject）</h3>
+<p>证书主体（Subject）用于标识数字证书的持有者，包括个人、组织或服务器的详细信息，是证书验证和身份识别的核心字段</p>
+<p>在OpenSSL命令行参数填写证书主体时，命令格式一般是这样的：</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>-subj<span class="w"> </span><span class="s2">&quot;/C=国家/ST=省份/L=城市/O=组织/OU=部门/CN=通用名称/emailAddress=邮箱&quot;</span>
+</span></code></pre></div>
+<h4 id="_2">各字段含义</h4>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>全称</th>
+<th>含义</th>
+<th>示例</th>
+<th>是否必需</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C</strong></td>
+<td>Country</td>
+<td>国家代码（2字母）</td>
+<td><code>CN</code>（中国）、<code>US</code>（美国）</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><strong>ST</strong></td>
+<td>State/Province</td>
+<td>州/省</td>
+<td><code>Beijing</code>、<code>Guangdong</code></td>
+<td>可选</td>
+</tr>
+<tr>
+<td><strong>L</strong></td>
+<td>Location/City</td>
+<td>城市</td>
+<td><code>Shanghai</code>、<code>Shenzhen</code></td>
+<td>可选</td>
+</tr>
+<tr>
+<td><strong>O</strong></td>
+<td>Organization</td>
+<td>组织/公司名</td>
+<td><code>Google Inc.</code>、<code>MyCompany</code></td>
+<td>可选</td>
+</tr>
+<tr>
+<td><strong>OU</strong></td>
+<td>Organizational Unit</td>
+<td>部门/单位</td>
+<td><code>IT Department</code>、<code>Security Team</code></td>
+<td>可选</td>
+</tr>
+<tr>
+<td><strong>CN</strong></td>
+<td>Common Name</td>
+<td><strong>通用名称</strong>（最重要）</td>
+<td><code>example.com</code>、<code>localhost</code></td>
+<td><strong>强烈建议</strong></td>
+</tr>
+<tr>
+<td><strong>emailAddress</strong></td>
+<td>Email</td>
+<td>电子邮箱</td>
+<td><code>admin@example.com</code></td>
+<td>可选</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_3">各字段的作用</h4>
+<h5 id="cn-common-name-"><strong>CN (Common Name) - 最关键</strong></h5>
+<ul>
+<li><strong>作用</strong>：指定证书要保护的域名或IP</li>
+<li><strong>浏览器验证</strong>：访问的域名必须与CN匹配</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p>现代浏览器（Chrome 58+）会优先检查Subject Alternative Name (SAN) ，没有SAN时会检查CN</p>
+</div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 示例：保护特定域名</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-subj<span class="w"> </span><span class="s2">&quot;/CN=mysite.com&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># 示例：保护IP地址</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>-subj<span class="w"> </span><span class="s2">&quot;/CN=192.168.1.100&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># 示例：本地开发</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>-subj<span class="w"> </span><span class="s2">&quot;/CN=localhost&quot;</span>
+</span></code></pre></div>
+<h5 id="c-country"><strong>C (Country)</strong></h5>
+<ul>
+<li>2字母国家代码，遵循ISO 3166-1标准</li>
+<li>常见代码：<code>CN</code>中国、<code>US</code>美国、<code>JP</code>日本、<code>KR</code>韩国、<code>DE</code>德国</li>
+</ul>
+<h5 id="st-stateprovince"><strong>ST (State/Province)</strong></h5>
+<ul>
+<li>省份或州名称</li>
+<li>建议使用英文或拼音：<code>Beijing</code>、<code>Shanghai</code>、<code>Guangdong</code></li>
+</ul>
+<h5 id="l-location"><strong>L (Location)</strong></h5>
+<ul>
+<li>城市名称</li>
+<li>示例：<code>Haidian District</code>、<code>Pudong</code></li>
+</ul>
+<h5 id="o-organization"><strong>O (Organization)</strong></h5>
+<ul>
+<li>公司或组织全称</li>
+<li>如果是个人证书，可以写个人姓名</li>
+</ul>
+<h5 id="ou-organizational-unit"><strong>OU (Organizational Unit)</strong></h5>
+<ul>
+<li>部门名称</li>
+<li>示例：<code>Technical Support</code>、<code>Sales Department</code></li>
+</ul>
+<h2 id="_4">准备工作</h2>
+<h3 id="openssl">OpenSSL</h3>
+<h4 id="linux">Linux</h4>
+<p>一般情况下，OpenSSL可以从各发行版的包管理器下载到</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Ubuntu/Debian</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openssl
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># CentOS/RHEL/Fedora (New)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>openssl
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># CentOS/RHEL (Old)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>openssl
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Arch Linux</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>openssl
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># Alpine</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>sudo<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>openssl
+</span></code></pre></div>
+<h4 id="macos">MacOS</h4>
+<p>你可以用Homebrew下载OpenSSL
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>brew<span class="w"> </span>install<span class="w"> </span>openssl
+</span></code></pre></div></p>
+<h4 id="windows">Windows</h4>
+<h5 id="msys2">MSYS2 安装</h5>
+<p>如果你有MSYS2环境，那么可以直接安装（一般情况下已安装）</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pacman<span class="w"> </span>-S<span class="w"> </span>openssl
+</span></code></pre></div>
+<h5 id="_5">二进制文件安装</h5>
+<p>你可以从<a href="https://slproweb.com/products/Win32OpenSSL.html">此网站</a>上下载到OpenSSL安装包，并进行环境变量(PATH)配置</p>
+<div class="admonition note">
+<p class="admonition-title">提示</p>
+<p>如果只需要二进制文件 (openssl.exe)，不使用开发文件 (include, lib...)，一般只要下Light版就够了</p>
+</div>
+<h3 id="signtool">Signtool（代码签名用）</h3>
+<div class="admonition danger">
+<p class="admonition-title">注意</p>
+<p>该工具仅支持Windows</p>
+</div>
+<p>Signtool可以从<a href="https://learn.microsoft.com/zh-cn/windows/apps/windows-sdk/downloads">Windows SDK</a>获取（安装组件里必须包含Signing Tools）。</p>
+<p>之后进行环境变量(PATH)配置 （建议但不是必须）</p>
+<h2 id="ssl">SSL证书</h2>
+<h3 id="_6">生成</h3>
+<div class="admonition danger">
+<p class="admonition-title">注意</p>
+<p>请务必将证书主体和SAN中的Alt Names替换成自己的！！！</p>
+</div>
+<h4 id="_7">仅生成一个根证书</h4>
+<div class="admonition warning">
+<p class="admonition-title">不推荐此方法</p>
+<p>我们并不推荐这种生成方法，因为你要依次安装每一个应用程序的CA证书，不便管理</p>
+</div>
+<h5 id="_8">一键生成（最简单）</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>-keyout<span class="w"> </span>server.key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>-out<span class="w"> </span>server.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span>-subj<span class="w"> </span><span class="s2">&quot;/C=CN/ST=Beijing/L=Beijing/O=MyOrg/OU=IT/CN=localhost&quot;</span>
+</span></code></pre></div>
+<h5 id="_9">分步生成（更灵活）</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 1. 生成私钥</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>server.key<span class="w"> </span><span class="m">2048</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># 2. 生成证书签名请求(CSR)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>server.key<span class="w"> </span>-out<span class="w"> </span>server.csr<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=CN/ST=Beijing/L=Beijing/O=MyOrg/OU=IT/CN=localhost&quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># 3. 生成自签名证书</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server.csr<span class="w"> </span>-signkey<span class="w"> </span>server.key<span class="w"> </span>-out<span class="w"> </span>server.crt<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span>
+</span></code></pre></div>
+<h5 id="san">生成带SAN的证书</h5>
+<div class="admonition info">
+<p class="admonition-title">提示</p>
+<p>推荐给证书加上Subject Alternative Name (SAN)，这样一个证书可以验证多个IP和DNS名</p>
+</div>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 1. 创建配置文件 san.conf</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>san.conf<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="s">[req]</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="s">default_bits = 2048</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="s">prompt = no</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="s">default_md = sha256</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="s">distinguished_name = dn</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="s">req_extensions = v3_req</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="s">[dn]</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="s">C=CN</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="s">ST=Beijing</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="s">L=Beijing</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="s">O=MyOrg</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="s">OU=IT</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="s">CN=localhost</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="s">[v3_req]</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="s">subjectAltName = @alt_names</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="s">[alt_names]</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="s">DNS.1 = localhost</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="s">DNS.2 = *.localhost</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="s">DNS.3 = example.com</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="s">IP.1 = 127.0.0.1</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="s">IP.2 = 192.168.1.100</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="s">EOF</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="c1"># 2. 生成带SAN的证书</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-keyout<span class="w"> </span>server.key<span class="w"> </span>-out<span class="w"> </span>server.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">  </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-config<span class="w"> </span>san.conf<span class="w"> </span>-extensions<span class="w"> </span>v3_req
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="c1"># 3. 查看证书信息验证SAN</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A1<span class="w"> </span><span class="s2">&quot;Subject Alternative Name&quot;</span>
+</span></code></pre></div>
+<h4 id="ca-server">生成证书链（CA-&gt;Server证书）（推荐）</h4>
+<h5 id="_10">流程图</h5>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>根证书 (Root CA)
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    ↓ 签名
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>中间证书 (Intermediate CA) [可选]
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    ↓ 签名
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>服务器证书 (Server Certificate)
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    ↓ 使用
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>你的网站/服务
+</span></code></pre></div>
+<h5 id="root-ca">创建根证书（Root CA）</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 1.1 生成根证书私钥</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>rootCA.key<span class="w"> </span><span class="m">4096</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 1.2 生成根证书（有效期10年，自签名）</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-new<span class="w"> </span>-nodes<span class="w"> </span>-key<span class="w"> </span>rootCA.key<span class="w"> </span>-sha256<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span>-out<span class="w"> </span>rootCA.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span>-subj<span class="w"> </span><span class="s2">&quot;/C=CN/ST=Beijing/L=Beijing/O=MyRootCA/OU=CA/CN=My Root CA&quot;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># 1.3 查看根证书</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>rootCA.crt<span class="w"> </span>-text<span class="w"> </span>-noout
+</span></code></pre></div>
+<h5 id="intermediate-ca">创建中间证书（Intermediate CA）[可选但推荐]</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 2.1 生成中间证书私钥</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>intermediateCA.key<span class="w"> </span><span class="m">4096</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 2.2 生成中间证书签名请求(CSR)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>intermediateCA.key<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span>-out<span class="w"> </span>intermediateCA.csr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span>-subj<span class="w"> </span><span class="s2">&quot;/C=CN/ST=Beijing/L=Beijing/O=MyIntermediateCA/OU=CA/CN=My Intermediate CA&quot;</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># 2.3 创建中间证书扩展配置文件</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>intermediate.ext<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="s">basicConstraints = critical, CA:TRUE, pathlen:0</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="s">keyUsage = critical, digitalSignature, keyCertSign, cRLSign</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="s">subjectKeyIdentifier = hash</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="s">authorityKeyIdentifier = keyid:always,issuer</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="s">EOF</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="c1"># 2.4 用根证书签发中间证书（有效期5年）</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>intermediateCA.csr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">  </span>-CA<span class="w"> </span>rootCA.crt<span class="w"> </span>-CAkey<span class="w"> </span>rootCA.key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">  </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>intermediateCA.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">  </span>-days<span class="w"> </span><span class="m">1825</span><span class="w"> </span>-sha256<span class="w"> </span>-extfile<span class="w"> </span>intermediate.ext
+</span></code></pre></div>
+<h5 id="_11">创建服务器证书（由中间证书签发）</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># 3.1 生成服务器私钥</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>server.key<span class="w"> </span><span class="m">2048</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># 3.2 生成服务器证书CSR</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>server.key<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span>-out<span class="w"> </span>server.csr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span>-subj<span class="w"> </span><span class="s2">&quot;/C=CN/ST=Beijing/L=Beijing/O=MyCompany/OU=IT/CN=myserver.local&quot;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># 3.3 创建服务器证书扩展配置（包含SAN）</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>server.ext<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="s">basicConstraints = CA:FALSE</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="s">keyUsage = critical, digitalSignature, keyEncipherment</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="s">extendedKeyUsage = serverAuth, clientAuth</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="s">subjectAltName = @alt_names</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="s">[alt_names]</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="s">DNS.1 = myserver.local</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="s">DNS.2 = www.myserver.local</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="s">DNS.3 = *.myserver.local</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="s">IP.1 = 127.0.0.1</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="s">IP.2 = 192.168.1.100</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="s">EOF</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="c1"># 3.4 用中间证书签发服务器证书（有效期1年）</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server.csr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">  </span>-CA<span class="w"> </span>intermediateCA.crt<span class="w"> </span>-CAkey<span class="w"> </span>intermediateCA.key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">  </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>server.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">  </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-sha256<span class="w"> </span>-extfile<span class="w"> </span>server.ext
+</span></code></pre></div>
+<h3 id="_12">使用</h3>
+<div class="admonition danger">
+<p class="admonition-title">注意</p>
+<p>在使用自签证书前，请务必安装对应的根证书，否则系统不会识别！！！</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Windows</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>certutil<span class="w"> </span>-addstore<span class="w"> </span><span class="s2">&quot;Root&quot;</span><span class="w"> </span>server.crt<span class="w"> </span><span class="c1"># 或使用“证书导入向导”，导入到&quot;受信任的根证书颁发机构&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># MacOS</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>sudo<span class="w"> </span>security<span class="w"> </span>add-trusted-cert<span class="w"> </span>-d<span class="w"> </span>-r<span class="w"> </span>trustRoot<span class="w"> </span>-k<span class="w"> </span>/Library/Keychains/System.keychain<span class="w"> </span>server.crt
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Linux (Debian/Ubuntu)</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>sudo<span class="w"> </span>cp<span class="w"> </span>server.crt<span class="w"> </span>/usr/local/share/ca-certificates/
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>sudo<span class="w"> </span>update-ca-certificates
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># Linux (CentOS/RHEL)</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>sudo<span class="w"> </span>cp<span class="w"> </span>server.crt<span class="w"> </span>/etc/pki/ca-trust/source/anchors/
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>sudo<span class="w"> </span>update-ca-trust
+</span></code></pre></div>
+</div>
+<p>在Web服务器中，需要配置证书才能开启SSL (HTTPS)功能</p>
+<p>下面以Nginx为示例</p>
+<div class="language-nginx highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="c1"># 开启HTTPS</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="s">ssl</span><span class="p">;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="c1"># 要和前面的CN或SAN里的值相同！！！</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">myserver.local</span><span class="p">;</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="c1"># 服务器证书</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="kn">ssl_certificate</span><span class="w"> </span><span class="s">/path/to/server.crt</span><span class="p">;</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="kn">ssl_certificate_key</span><span class="w"> </span><span class="s">/path/to/server.key</span><span class="p">;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="c1"># ...</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="windows_1">Windows 代码签名证书</h2>
+<h3 id="_13">生成</h3>
+<h4 id="windows-sdk">Windows SDK 直接生成</h4>
+<h5 id="_14">创建证书和私钥</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>makecert<span class="w"> </span>-sv<span class="w"> </span>codesign.pvk<span class="w"> </span>-r<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;CN=Test&quot;</span><span class="w"> </span>codesign.cer
+</span></code></pre></div>
+<h5 id="spc">创建SPC文件</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cert2spc<span class="w"> </span>codesign.cer<span class="w"> </span>codesign.spc
+</span></code></pre></div>
+<h5 id="pfx">创建PFX文件</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>pvk2pfx<span class="w"> </span>-pvk<span class="w"> </span>codesign.pvk<span class="w"> </span>-pi<span class="w"> </span><span class="o">[</span>PASSWORD<span class="o">]</span><span class="w"> </span>-spc<span class="w"> </span>codesign.spc<span class="w"> </span>-pfx<span class="w"> </span>codesign.pfx<span class="w"> </span>-f
+</span></code></pre></div>
+<h4 id="ca-openssl">基于CA证书生成 (OpenSSL)</h4>
+<h5 id="_15">创建代码签名证书配置文件</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># 创建 codesign.conf</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>codesign.conf<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="s">[req]</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="s">default_bits = 2048</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="s">prompt = no</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="s">default_md = sha256</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="s">distinguished_name = dn</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="s">req_extensions = v3_req</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="s">[dn]</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="s">C=CN</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="s">ST=Beijing</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="s">L=Beijing</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="s">O=MyCompany Inc.</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="s">OU=Software Development</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="s">CN=MyCompany Code Signing Certificate</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="s">emailAddress=security@mycompany.com</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="s">[v3_req]</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="s">basicConstraints = CA:FALSE</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="s">keyUsage = critical, digitalSignature</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="s">extendedKeyUsage = critical, codeSigning</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="s">subjectKeyIdentifier = hash</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h5 id="_16">生成代码签名证书</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 1. 生成代码签名私钥</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>codesign.key<span class="w"> </span><span class="m">2048</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># 2. 生成CSR</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>codesign.key<span class="w"> </span>-out<span class="w"> </span>codesign.csr<span class="w"> </span>-config<span class="w"> </span>codesign.conf
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># 3. 创建扩展文件（代码签名专用）</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>codesign.ext<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="s">basicConstraints = CA:FALSE</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="s">keyUsage = critical, digitalSignature</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="s">extendedKeyUsage = critical, codeSigning</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="s">subjectAltName = otherName:1.3.6.1.4.1.311.20.2.3;UTF8:MyCompany Software</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="s">authorityKeyIdentifier = keyid,issuer</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="s">EOF</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="c1"># 4. 用CA签发代码签名证书</span>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>codesign.csr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="w">  </span>-CA<span class="w"> </span>intermediateCA.crt<span class="w"> </span>-CAkey<span class="w"> </span>intermediateCA.key<span class="w"> </span><span class="se">\ </span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="w">  </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>codesign.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="w">  </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-sha256<span class="w"> </span>-extfile<span class="w"> </span>codesign.ext<span class="w"> </span><span class="c1"># 如果没有中间CA则用rootCA.(crt/key)</span>
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="c1"># 5. 验证证书</span>
+</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>codesign.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A5<span class="w"> </span><span class="s2">&quot;X509v3 Extended Key Usage&quot;</span>
+</span><span id="__span-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="c1"># 应该输出: codeSigning</span>
+</span></code></pre></div>
+<h5 id="pkcs12">转换为PKCS#12格式</h5>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># 合并证书链（代码签名证书 + 中间证书 + 根证书）</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>cat<span class="w"> </span>codesign.crt<span class="w"> </span>intermediateCA.crt<span class="w"> </span>rootCA.crt<span class="w"> </span>&gt;<span class="w"> </span>codesign-chain.crt
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># 转换为PFX格式</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>openssl<span class="w"> </span>pkcs12<span class="w"> </span>-export<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">  </span>-out<span class="w"> </span>codesign.pfx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">  </span>-inkey<span class="w"> </span>codesign.key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">  </span>-in<span class="w"> </span>codesign-chain.crt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">  </span>-passout<span class="w"> </span>pass:<span class="o">[</span>PASSWORD<span class="o">]</span><span class="w">  </span><span class="c1"># 设置密码，或留空使用 -passout pass:</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="c1"># 如果需要无密码（不推荐）</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>openssl<span class="w"> </span>pkcs12<span class="w"> </span>-export<span class="w"> </span>-out<span class="w"> </span>codesign.pfx<span class="w"> </span>-inkey<span class="w"> </span>codesign.key<span class="w"> </span>-in<span class="w"> </span>codesign-chain.crt<span class="w"> </span>-passout<span class="w"> </span>pass:
+</span></code></pre></div>
+<h3 id="_17">使用</h3>
+<div class="admonition danger">
+<p class="admonition-title">注意</p>
+<p>在使用自签证书前，请务必安装对应的根证书，否则系统不会识别！！！</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># 以管理员身份运行PowerShell/CMD</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># 安装根证书到&quot;受信任的根证书颁发机构&quot;</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>certutil<span class="w"> </span>-addstore<span class="w"> </span><span class="s2">&quot;Root&quot;</span><span class="w"> </span>rootCA.crt
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="c1"># 安装中间证书到&quot;中间证书颁发机构&quot;（如果有）</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>certutil<span class="w"> </span>-addstore<span class="w"> </span><span class="s2">&quot;CA&quot;</span><span class="w"> </span>intermediateCA.crt
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="c1"># 导入PFX到个人证书存储</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>certutil<span class="w"> </span>-user<span class="w"> </span>-p<span class="w"> </span><span class="o">[</span>PASSWORD<span class="o">]</span><span class="w"> </span>-importpfx<span class="w"> </span>codesign.pfx
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="c1"># 或使用证书导入向导</span>
+</span></code></pre></div>
+</div>
+<p>使用SignTool可以签名Windows应用程序</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># SHA-1</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>signtool<span class="w"> </span>sign<span class="w"> </span>/f<span class="w"> </span>codesign.pfx<span class="w"> </span>/p<span class="w"> </span><span class="o">[</span>PASSWORD<span class="o">]</span><span class="w"> </span>/t<span class="w"> </span>http://timestamp.sectigo.com/authenticode<span class="w"> </span>/v<span class="w"> </span>/fd<span class="w"> </span>sha1<span class="w"> </span>app.exe
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># SHA-256</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>signtool<span class="w"> </span>sign<span class="w"> </span>/f<span class="w"> </span>codesign.pfx<span class="w"> </span>/p<span class="w"> </span><span class="o">[</span>PASSWORD<span class="o">]</span><span class="w"> </span>/fd<span class="w"> </span>sha256<span class="w"> </span>/tr<span class="w"> </span>http://timestamp.sectigo.com/?td<span class="o">=</span>sha256<span class="w"> </span>/td<span class="w"> </span>sha256<span class="w"> </span>/as<span class="w"> </span>/v<span class="w"> </span>app.exe
+</span></code></pre></div>
+<h2 id="_18">结语</h2>
+<p>至此，我们已经完整地走过了自签证书从概念到实践的整个旅程。从理解证书主体的各个字段含义，到动手生成SSL/TLS证书，再到构建完整的CA证书链，最后深入到Windows代码签名证书的制作与使用——这一路走来，相信你已经掌握了自签证书的核心知识。</p>
+<h3 id="_19">回顾与总结</h3>
+<p><strong>SSL证书部分</strong>，我们学习了：</p>
+<ul>
+<li>使用OpenSSL一键生成或分步生成自签证书</li>
+<li>通过SAN扩展让单个证书支持多个域名和IP</li>
+<li>构建根CA→中间CA→服务器证书的完整证书链体系</li>
+<li>在Nginx等Web服务器中正确配置证书</li>
+</ul>
+<p><strong>代码签名部分</strong>，我们掌握了：</p>
+<ul>
+<li>使用Windows SDK工具链快速生成测试证书</li>
+<li>基于OpenSSL和已有CA体系生成更规范的代码签名证书</li>
+<li>将证书转换为PFX格式并导入Windows证书存储</li>
+<li>使用SignTool对应用程序进行SHA-1/SHA-256双签名</li>
+</ul>
+<h3 id="_20">重要提醒</h3>
+<div class="admonition warning">
+<p class="admonition-title">请记住</p>
+<p>自签证书的定位始终是<strong>开发测试</strong>工具。它非常适合：</p>
+<ul>
+<li>本地开发环境（localhost）</li>
+<li>企业内部测试网络</li>
+<li>学习SSL/TLS工作原理</li>
+<li>验证代码签名流程</li>
+</ul>
+<p>但<strong>永远不要</strong>在生产环境、面向公网的服务或对外分发的软件中使用自签证书。对于生产环境，请选择Let's Encrypt（免费）、DigiCert、Sectigo等受信任的CA机构签发的正式证书。</p>
+</div>
+<h3 id="_21">后续学习建议</h3>
+<p>如果你希望进一步深入，可以探索以下方向：</p>
+<ul>
+<li><strong>证书自动化管理</strong>：使用Certbot、acme.sh等工具自动续期Let's Encrypt证书</li>
+<li><strong>证书透明度（CT）</strong>：了解现代证书生态的公开审计机制</li>
+<li><strong>硬件安全模块（HSM）</strong>：企业级私钥保护方案</li>
+<li><strong>mTLS（双向TLS）</strong>：服务间身份认证的高级应用</li>
+</ul>
+<h3 id="_22">最后的叮嘱</h3>
+<p>证书和加密技术是网络安全的重要基石。掌握自签证书的制作与使用，不仅能帮助你解决开发测试中的实际问题，更能让你深入理解PKI（公钥基础设施）的工作原理。希望这份指南能成为你探索网络安全世界的起点，在实践过程中遇到问题时，请随时查阅官方文档或社区资源。</p>
+<p>祝你在加密与安全的道路上一帆风顺！🔐</p>
+<hr />
+<p><em>本指南会持续更新，如发现错误或有改进建议，欢迎反馈。</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../aigen/Mermaid/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 用 Mermaid 在 Markdown 中绘制图表：告别繁琐绘图，拥抱高效表达">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                用 Mermaid 在 Markdown 中绘制图表：告别繁琐绘图，拥抱高效表达
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      This page is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.path", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
