@@ -1,7 +1,10 @@
 site_name: My Docs
-site_url: https://mydocs.local
+site_url: https://ht7813.github.io/docs
+repo_url: https://github.com/ht7813/docs
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/git-alt
   features:
     - navigation.tabs
     - navigation.tabs.sticky
@@ -11,7 +14,13 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 nav:
   - index.md
-  - 教程:
-    - tutorial/Mermaid.md
+  - AI神秘文章:
+    - aigen/Mermaid.md
+copyright: This page is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>

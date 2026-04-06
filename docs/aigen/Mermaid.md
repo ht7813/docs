@@ -4,9 +4,17 @@
     本篇文章由AI生成
 
 !!! warning "注意"
-    本界面需要在支持Mermaid渲染的查看器中查看
+    本文章的**原始Markdown文件**需要在支持Mermaid渲染的Markdown查看器中查看
+    
+    （本站的此页面已内置Mermaid渲染引擎，只要现代浏览器就行了）
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>
 
 在日常学习、文档编写或知识整理中，我们常常需要绘制流程图、时序图等图表来清晰地表达逻辑。然而，传统的绘图方式存在几个核心痛点：
+
 - **工具依赖强**：需要安装和学习专业的绘图软件。
 - **修改成本高**：任何细微的调整都可能需要重新拖动、对齐和排版。
 - **协作不便利**：图片文件难以进行版本对比，也无法被AI直接理解和处理。
@@ -17,17 +25,18 @@
 
 让我们通过一个具体的数学问题来直观感受 Mermaid。下图所示为一个运算程序：
 
-```mermaid
+<pre class="mermaid">
 flowchart LR
     Input[/输入x/] --> Pow[x³]
     Pow --> Decision{x³ < 10?}
     Decision -->|No| Sub[减8] --> Div[除以4] --> Output[/输出/]
     Decision -->|Yes| Add[加3] --> Mult[乘4] --> Output
-```
+</pre>
 
 **问题**：若输入的值为 -2，则输出的值为多少？
 
 **求解过程**：
+
 1.  输入 \( x = -2 \)
 2.  执行立方运算：\( (-2)^3 = -8 \)
 3.  判断 \( -8 < 10 \) 为真，进入“是”分支
@@ -60,7 +69,7 @@ sequenceDiagram
 ```
 ````
 
-```mermaid
+<pre class="mermaid">
 sequenceDiagram
     participant User as 用户
     participant Front as 前端界面
@@ -70,7 +79,7 @@ sequenceDiagram
     Front->>Server: 发送用户名/密码
     Server-->>Front: 返回验证结果
     Front-->>User: 显示登录成功
-```
+</pre>
 
 ### 2. 饼图：直观呈现数据分布
 
@@ -86,13 +95,13 @@ pie title 学生每日学习时间分布
 ```
 ````
 
-```mermaid
+<pre class="mermaid">
 pie title 学生每日学习时间分布
     "课堂学习" : 6
     "作业复习" : 3
     "课外阅读" : 1.5
     "自主探究" : 1
-```
+</pre>
 
 ### 3. 甘特图：高效管理项目进度
 
@@ -112,7 +121,7 @@ gantt
 ```
 ````
 
-```mermaid
+<pre class="mermaid">
 gantt
     title 课程论文撰写计划
     dateFormat YYYY-MM-DD
@@ -122,7 +131,7 @@ gantt
     section 论文撰写
     初稿写作 :crit, 2025-06-01, 7d
     修改与定稿 :2025-06-08, 5d
-```
+</pre>
 
 ## 三、如何开始使用 Mermaid？
 
