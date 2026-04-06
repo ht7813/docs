@@ -499,6 +499,7 @@ signtool sign /f codesign.pfx /p [PASSWORD] /fd sha256 /tr http://timestamp.sect
 ### 后续学习建议
 
 如果你希望进一步深入，可以探索以下方向：
+
 - **证书自动化管理**：使用Certbot、acme.sh等工具自动续期Let's Encrypt证书
 - **证书透明度（CT）**：了解现代证书生态的公开审计机制
 - **硬件安全模块（HSM）**：企业级私钥保护方案
