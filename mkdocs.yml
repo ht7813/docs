@@ -2,3 +2,16 @@ site_name: My Docs
 site_url: https://mydocs.local
 theme:
   name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - navigation.footer
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+nav:
+  - index.md
+  - 教程:
+    - tutorial/Mermaid.md
