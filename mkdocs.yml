@@ -7,7 +7,7 @@ theme:
     repo: fontawesome/brands/git-alt
   features:
     - navigation.tabs
-    - navigation.tabs.sticky
+#    - navigation.tabs.sticky
     - navigation.path
     - navigation.footer
 markdown_extensions:
