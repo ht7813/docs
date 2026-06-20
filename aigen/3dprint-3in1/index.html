@@ -1,0 +1,1036 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ht7813.github.io/docs/aigen/3dprint-3in1/">
+      
+      
+        <link rel="prev" href="../Mermaid/">
+      
+      
+        <link rel="next" href="../c_cpp/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>《3D打印机·云受害系列》合订本 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3d" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              《3D打印机·云受害系列》合订本
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ht7813/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Mermaid/" class="md-tabs__link">
+          
+  
+  
+  AI神秘文章
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorial/selfsign-cert/" class="md-tabs__link">
+          
+  
+  
+  教程
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ht7813/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI神秘文章
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI神秘文章
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mermaid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用 Mermaid 在 Markdown 中绘制图表：告别繁琐绘图，拥抱高效表达
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    《3D打印机·云受害系列》合订本
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    《3D打印机·云受害系列》合订本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一季：买不起
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二季：云打印受害者
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三季：连吃灰的资格都没有
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全系列大结局·彩蛋
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c_cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    同一个库的 C++ 版和 C 版
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/selfsign-cert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制作自签SSL/Windows代码签名证书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一季：买不起
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二季：云打印受害者
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三季：连吃灰的资格都没有
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全系列大结局·彩蛋
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../Mermaid/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AI神秘文章
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="3d">《3D打印机·云受害系列》合订本</h1>
+<div class="admonition info">
+<p class="admonition-title">AI生成声明</p>
+<p>本篇文章由AI生成</p>
+</div>
+<h2 id="_1">第一季：买不起</h2>
+<p>你网上看到一个好玩的东西，想玩。</p>
+<p><strong>3D打印机</strong>：问了吗？玩你沙子去！</p>
+<p><strong>你</strong>：No！[3D打印机对你来说很贵]</p>
+<p>后来——</p>
+<p><strong>学校</strong>：3D打印社团，不要998，不要98，免费报名！（小字：前提是你能抢到）</p>
+<p>你想，抢到这个课就不用自己买打印机了。</p>
+<p>结果：一开票秒光。</p>
+<p><strong>抢到的人</strong>：问了吗？自己买去！</p>
+<p><strong>你</strong>：No！(×2)</p>
+<p><strong>命运</strong>：（总结）绕了一圈，还是沙子。</p>
+<p><strong>你</strong>：No！！(×3)</p>
+<hr />
+<h2 id="_2">第二季：云打印受害者</h2>
+<p>小明刷视频时，看到一个标题叫《打这玩意儿太上瘾了》的视频——点进去，发现是炫耀3D打印机的。</p>
+<p><strong>视频内容</strong>：</p>
+<ul>
+<li>起因：小亮忘记给家里人买纸巾盒。</li>
+<li>经过：用3D打印机打了一个。（画面里机器是某品牌P2S，价格没在视频中出现）</li>
+<li>结果：做出来了，是<strong>下沉式纸巾盒</strong>——用少了盖子会自己往下降，高级得离谱。</li>
+<li>之后，家里人要买盆栽，小亮又打了一个花盆。</li>
+<li>家里人：有本事把花也做出来！</li>
+<li>小亮：彳亍！</li>
+<li>还真做出来了（打印的塑料花+上色）。</li>
+<li>后来，家里人开始日夜不停地打东西，小亮想打，但一直被占着……</li>
+</ul>
+<p>小明看完视频，去查了一下那台机器的价格：</p>
+<blockquote>
+<p><strong>2026年5月17日，正值618活动期间，某品牌P2S售价 ¥4379.00。</strong></p>
+</blockquote>
+<p><strong>小明</strong>：4379……就算做活动，也还是四千多块钱啊！！！</p>
+<p><strong>评论区</strong>：</p>
+<blockquote>
+<p><strong>A（土豪党）</strong>：3D打印机其实没那么贵，很便宜的！<br />
+<strong>小明</strong>：你***！</p>
+<p><strong>B（正常人）</strong>：打这一堆东西，不说别的，最快连续不停地打，半个月是要的。就那一个纸巾盒，估计都得打印个二十几个小时。而且博主估计有一些是外面买的现成的。多色打印，贼特么费料。</p>
+</blockquote>
+<p><strong>小明</strong>：二十几个小时？费料？那就算我买得起机器，我也等不起、耗不起啊？</p>
+<blockquote>
+<p><strong>C</strong>：我也想以后买一台3D打印机，有的时候需要一些配件，可以自己打印，这样就没必要去网上买了[笑哭]<br />
+<strong>小明</strong>：我也是，但太贵了！</p>
+<p><strong>D</strong>：花瓶有它打印的时间早就可以买一个[doge]</p>
+<p><strong>E</strong>：（某品牌）打钱！</p>
+<p><strong>F</strong>：我听说打印出来的材料有毒</p>
+<p><strong>G</strong>：这个需要自己弄建模不<br />
+<strong>H回复G</strong>：（某品牌）有3DHub的！有许多现成的模型！</p>
+</blockquote>
+<p>小明蹲在院子里筛沙子。</p>
+<p><strong>妈妈</strong>：干嘛呢？
+<strong>小明</strong>：……为第三季做准备。</p>
+<hr />
+<h2 id="_3">第三季：连吃灰的资格都没有</h2>
+<p>大数据终于学聪明了，给小明推了一个看起来对他这种穷人更友好的视频——</p>
+<p>标题：《2026年3D打印机推荐》</p>
+<p><strong>开头第一句</strong>：</p>
+<blockquote>
+<p>“如果你只是靠想象，想着买回来如何如何，那么大概率不用买了！99%会吃灰！”</p>
+</blockquote>
+<p><strong>小明</strong>：吃灰？我都买不起，你跟我谈吃灰？</p>
+<p>视频继续，UP主开始列清单。</p>
+<p><strong>0-2000元档（入门首选）</strong>：</p>
+<ul>
+<li>*** TINA2C-812（券后812）</li>
+<li>*** 艺术家-1189</li>
+<li>XXX A1单机版-1342</li>
+<li>YYY KX多色-1445</li>
+<li>ZZZ K2-1971</li>
+</ul>
+<p><strong>2000-5000元档（高性价比）</strong>：</p>
+<ul>
+<li>ZZZ 3D打印机-3008</li>
+<li>ZZZ K2 Pro-2974</li>
+<li>YYY S1C-2379</li>
+<li>XXX A1C-2030</li>
+<li>*** CC2-2209</li>
+<li>XXX P1SC-3033</li>
+<li>ZZZ K2 Pro-4079</li>
+<li>ZZZ Ender-5 Max-4599</li>
+<li>***-4589</li>
+</ul>
+<p><strong>5000-10000元档（高性能）</strong>：</p>
+<ul>
+<li>ZZZ K2 Plus-9298</li>
+<li>XXX H2DC-10199</li>
+</ul>
+<p>（是的，没有出现第二季的P2S。）</p>
+<p><strong>小明</strong>：那个P2S呢？小亮那台呢？怎么没上榜？？？</p>
+<p><strong>评论区</strong>：</p>
+<blockquote>
+<p><strong>A</strong>：真心建议新手小白入门选XXX，其他家品牌真的太折腾了，到头来还是得回到XXX。（提示：这个品牌就是P2S那个。）<br />
+<strong>小明</strong>：你们XXX信徒是没有自己的分区吗？？</p>
+<p><strong>B</strong>：能放卧室用吗？<br />
+<strong>作者回复B</strong>：能是能，但最好不要，多少还是有一点点气味的。<br />
+<strong>小明</strong>：一点点气味？还得有个单独的房间？我睡机器上？  </p>
+<p><strong>C</strong>：新手入门，为啥不提P2S？赶上活动促销的时候，四千块拿下。好用不贵，战斗神机，非常能打[支持]<br />
+<strong>小明</strong>：你怎么又来了！！！<br />
+<strong>作者回复C</strong>：就这广告你要打几遍？一条多少钱？<br />
+<strong>小明</strong>：作者干得漂亮！！！  </p>
+<p><strong>D</strong>：2千到5千档，必须提名一个XXX P2S，去年10月份双十一期间刚出来的时候，抢都抢不到，卖得很火，还上了老罗的科技春晚。现在到手单机3千来块钱，多色套装4千出头，新手第一台买这个绝对真香。<br />
+<strong>小明</strong>：C和D是一伙的吧？？一个说四千，一个说三千来块，能不能统一一下话术？？？</p>
+<p><strong>E回复D</strong>：宣传要素过多[doge]<br />
+<strong>F回复E</strong>：需要转人工他才能回复你[doge]  </p>
+<p><strong>G</strong>：XXX a1mini 可以入手吗 
+<strong>作者回复G</strong>：可以啊  </p>
+<p><strong>H回复作者</strong>：嗯嗯 现在 pdd912 不知道该不该入 还是等一手 618（评论日期：2026-05-02）<br />
+<strong>作者回复H</strong>：最低的时候有过八百多，也没差多少，早买早享受吧</p>
+</blockquote>
+<p><strong>小明看到“912”“八百多”</strong>：</p>
+<blockquote>
+<p>三位数！！！我居然在3D打印机视频里看到了三位数的价格！！！</p>
+</blockquote>
+<p><strong>身后传来妈妈的声音</strong>：</p>
+<blockquote>
+<p>“等会！PDD？电器不能在上面买！”</p>
+</blockquote>
+<p><strong>小明</strong>：？？？<br />
+<strong>妈妈</strong>：你看你上次在拼夕夕买的那个充电头，用了两天就冒烟了！八百多不是钱啊？烧了怎么办？<br />
+<strong>小明</strong>：（张了张嘴，又闭上了）</p>
+<blockquote>
+<p>完了，连拼夕夕这条路都被堵死了。</p>
+</blockquote>
+<p><strong>视频最后，UP主给出其他建议</strong>：</p>
+<blockquote>
+<p>“耗材黑白是必选，然后就是红绿黄，剩下的可以买点渐变色的。先买PLA，玩熟练了以后再打别的。工具无所谓，夕夕上买一套也行，显得专业点，别超过20。”</p>
+</blockquote>
+<p><strong>小明</strong>：这个我是真的买得起。20块以内。我终于有一条能跟上的建议了。……但我要一套工具干嘛？筛沙子用吗？？？</p>
+<hr />
+<p><strong>镜头转到院子</strong>：</p>
+<p>小明蹲在沙堆旁边，手里多了一把小铲子——新买的，不超过20块。</p>
+<p><strong>妈妈</strong>：哟，新铲子？<br />
+<strong>小明</strong>：嗯，夕夕上买的。<br />
+<strong>妈妈</strong>：你不是有一把吗？<br />
+<strong>小明</strong>：这把比较专业。UP主说的，显得专业点。<br />
+<strong>妈妈</strong>：……他是让你买3D打印的工具，不是买铲沙子的小铲子。<br />
+<strong>小明</strong>：……我就差这一点点仪式感了，您别拆穿我。</p>
+<p>他放下铲子，掏出手机，把《2026年3D打印机推荐》从历史记录里删掉了。</p>
+<p>然后打开了另一个视频：</p>
+<p>《手工耿：自制筛沙机》。</p>
+<hr />
+<h2 id="_4">全系列大结局·彩蛋</h2>
+<p>多年以后，小明终于攒够了钱。</p>
+<p>他打开购物App，下单了一台——<strong>入门款，券后812块</strong>的那台。</p>
+<p>货到了，他开箱、组装、通电、调平、切片……</p>
+<p>然后打了一个<strong>小铲子</strong>。</p>
+<p><strong>妈妈</strong>：你这打的是什么？<br />
+<strong>小明</strong>：纪念品。<br />
+<strong>妈妈</strong>：纪念什么？<br />
+<strong>小明</strong>：纪念那些年我筛过的沙子。</p>
+<p>他把那个3D打印的小铲子，轻轻放在院子里的沙堆旁边。</p>
+<p>然后转身进屋，继续刷视频。</p>
+<p>视频标题：《打这玩意儿太上瘾了》。</p>
+<p><strong>全剧终</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Mermaid/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 用 Mermaid 在 Markdown 中绘制图表：告别繁琐绘图，拥抱高效表达">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                用 Mermaid 在 Markdown 中绘制图表：告别繁琐绘图，拥抱高效表达
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../c_cpp/" class="md-footer__link md-footer__link--next" aria-label="Next: 同一个库的 C++ 版和 C 版">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                同一个库的 C++ 版和 C 版
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      This page is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.path", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
